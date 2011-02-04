@@ -42,6 +42,7 @@ go to `nginx_upload_progress_module/test` and run `client.sh 1 http://uploaddemo
 2. install rvm ( or not, your choice :8 )
 3. install bundler `gem install bundler`
 4. install passenger `gem install passenger` 
+5. run `bundler install` in app dir
   
 # Configuration 
 
@@ -53,26 +54,26 @@ you don't have to but i tend to add new projects to /etc/hosts and add line `127
 
 To configure it good you just need to add few things.
 
-   http { 
+     http { 
        upload_progress proxied 1m;
        
 This reserves upload_progress stash with 1 mb size. 
 Rest is in our server config here is sample ( with passenger)
 
- server {
-   listen 80;
-   server_name uploaddemo.com;
-   root /Users/kuba/Workspace/Ruby/upload_demo/public;
-   access_log /opt/nginx/logs/upload_demo_access.log;
-   passenger_enabled on;
-   rails_env development;     
+     server {
+       listen 80;
+       server_name uploaddemo.com;
+       root /Users/kuba/Workspace/Ruby/upload_demo/public;
+       access_log /opt/nginx/logs/upload_demo_access.log;
+       passenger_enabled on;
+       rails_env development;     
 
-   location ^~ /progress {
-      # report uploads tracked in the 'proxied' zone 
-      report_uploads proxied;
-      track_uploads proxied 30s;
-   }
- }
+      location ^~ /progress {
+        # report uploads tracked in the 'proxied' zone 
+        report_uploads proxied;
+        track_uploads proxied 30s;
+      }
+     }
 
 Most important part is location of /progress this will be our point of requests to check status of uploaded files.
 
