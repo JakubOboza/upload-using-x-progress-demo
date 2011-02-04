@@ -63,7 +63,7 @@ Rest is in our server config here is sample ( with passenger)
      server {
        listen 80;
        server_name uploaddemo.com;
-       root /Users/kuba/Workspace/Ruby/upload_demo/public;
+       root /Users/kuba/Workspace/Ruby/upload_demo/public; #path to application point to public ofc :-F
        access_log /opt/nginx/logs/upload_demo_access.log;
        passenger_enabled on;
        rails_env development;     
@@ -82,29 +82,29 @@ Most important part is location of /progress this will be our point of requests 
 
 here is apache config, not tested ( time issues ;X )
 
-<VirtualHost *:80>
-  ServerName uploaddemo.com
-  DocumentRoot "/Users/kuba/Workspace/Ruby/upload_demo/public"
-  RailsEnv development
-  RailsAllowModRewrite off
+    <VirtualHost *:80>
+       ServerName uploaddemo.com
+       DocumentRoot "/Users/kuba/Workspace/Ruby/upload_demo/public"
+       RailsEnv development
+       RailsAllowModRewrite off
 
-  <directory "/Users/kuba/Workspace/Ruby/upload_demo/public">
-    Order allow,deny
-    Allow from all
-  </directory>
+      <directory "/Users/kuba/Workspace/Ruby/upload_demo/public">
+        Order allow,deny
+        Allow from all
+      </directory>
 
 
-    # needed for tracking upload progess
-    <Location />
+      # needed for tracking upload progess
+      <Location />
         # enable tracking uploads in /
         TrackUploads On
-    </Location>
+      </Location>
 
-    <Location /progress>
+      <Location /progress>
         # enable upload progress reports in /progress
         ReportUploads On
-    </Location>
-</VirtualHost>
+      </Location>
+    </VirtualHost>
 
 # Problems
 * it worked well on nginx 0.6.13 but after "smart" upgrade to 0.9.4 what was forced after update of passenger it stopped and returns only status `starting`. I forked module and I will look if i can fix it. 
