@@ -1,17 +1,43 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
+gem 'rake'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+#gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'mysql'
 
 # Use unicorn as the web server
 # gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
+
+# PaperClip image handling
+gem 'paperclip'
+
+# To use debugger
+group :development do
+  gem 'ruby-debug'
+  gem 'mongrel'
+end
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.4"
+  gem "jslint_on_rails"
+end
+
+group(:test) do
+  gem 'rcov'
+  gem 'factory_girl_rails'
+  gem 'mocha',              '0.9.8'
+  gem 'faker'
+  gem 'delorean',           '0.2.0'
+  gem 'webrat',             '0.7.1'
+end
+
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'

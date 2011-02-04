@@ -1,0 +1,33 @@
+<h1>
+   Welcome :)
+</h1>                                 
+<p>
+   This demo is more proof-of-concept, X-Progress-ID is usable :).
+</p>
+
+<% form_for :audio_file, @audio_file, :url => upload_progress_path, 
+                                      :html => { :multipart => true, :id => "audio-file-upload-form" } do |form| %> 
+                                      
+  <%= hidden_field_tag 'X-Progress-ID', @uid %>  
+  <label for="audio_file_file">Select file</label>
+  <%= form.file_field :file %>
+  <%= submit_tag "Upload", :id => "audio-file-upload-form-submit" %>
+<% end %>    
+
+<% form_for :audio_file, @audio_file, :url => upload_progress_path, 
+                                      :html => {:id => "audio-file-name-form", :class => "hidden-element", :method => :put} do |form| %>  
+                                      
+  <label for="audio_file_name">Enter file name:</label>                                       
+  <%= form.text_field :name %>
+<% end %>
+
+
+<div id='progress' class='hidden-element'>
+    File upload in progress            
+    <div id='progress-bar' style='width: 0%;'>
+        0%
+    </div>
+</div>             
+                           
+<p id="audio-file-name" class="hidden-element"></p>
+<p id="audio-file-path" class="hidden-element"></p>      
